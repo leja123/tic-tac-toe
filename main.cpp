@@ -5,30 +5,29 @@ using namespace std;
 void grid_numbers(int grid[][3], int n);
 void show_grid(char grid[][3], int n);
 void instructions();
-void turn(char grid[][3], int n, int m);
+void turn(char grid[][3], int n);
 
 int main()
 {
     char grid[3][3] = {{'.','.','.'},{'.','.','.'},{'.','.','.'}};
     cout<<"TIC TAC TOE\n"<<endl;
-    int player = 0;
-    turn(grid, 3, player);
-    player++;
-    show_grid(grid, 3);
-    /*do{
 
-    }while(x!=10); */
+    turn(grid, 3);
+
+
+
+
 
 
 
     instructions();
     cout<<endl;
-    show_grid(grid, 3);
+
     return 0;
 }
 
 void instructions(){
-    cout<<"How to play:"<<endl;
+    cout<<endl<<"How to play:"<<endl;
     cout<<"--------------"<<endl;
     cout<<"This is a game for 2 players. It's played on 3x3 grid and fields are numbered like this: "<<endl;
     cout<<endl;
@@ -46,69 +45,79 @@ void instructions(){
 
 
 
-void turn(char grid[][3], int n, int m){
+void turn(char grid[][3], int n){
+    int player = 0;
     int x;
-    int row;
-    int column;
-    cin>>x;
-    switch(x){
-        case 0:
-            instructions();
-            break;
-        case 1:
-            row=0;
-            column=0;
-            break;
-        case 2:
-            row=1;
-            column=0;
-            break;
-        case 3:
-            row=2;
-            column=0;
-            break;
-        case 4:
-            row=0;
-            column=1;
-            break;
-        case 5:
-            row=1;
-            column=1;
-            break;
-        case 6:
-            row=2;
-            column=1;
-            break;
-        case 7:
-            row=0;
-            column=2;
-            break;
-        case 8:
-            row=1;
-            column=2;
-            break;
-        case 9:
-            row=2;
-            column=2;
-            break;
-        case 10:
-            cout<<"exit";
-            break;
-        default:
-            cout<<"Invalid number"<<endl;
-    }
-    char character;
-    if(grid[row][column]=='.'){
-        if(m%2==0){
-            character = 'X';
+    bool exit = false;
+    do{
+
+        int row;
+        int column;
+        cin>>x;
+        switch(x){
+            case 0:
+                instructions();
+                break;
+            case 1:
+                row=0;
+                column=0;
+                break;
+            case 2:
+                row=1;
+                column=0;
+                break;
+            case 3:
+                row=2;
+                column=0;
+                break;
+            case 4:
+                row=0;
+                column=1;
+                break;
+            case 5:
+                row=1;
+                column=1;
+                break;
+            case 6:
+                row=2;
+                column=1;
+                break;
+            case 7:
+                row=0;
+                column=2;
+                break;
+            case 8:
+                row=1;
+                column=2;
+                break;
+            case 9:
+                row=2;
+                column=2;
+                break;
+            case 10:
+                cout<<"exit";
+                exit = true;
+                break;
+            default:
+                cout<<"Invalid number"<<endl;
+        }
+        char character;
+        if(grid[row][column]=='.'){
+            if(player%2==0){
+                character = 'X';
+                player++;
+            }
+            else{
+                character = 'O';
+                player++;
+            }
+
         }
         else
-            character = 'O';
-    }
-    else
-        cout<<"This field is already taken";
-    grid[row][column]=character;
-
+            cout<<"This field is already taken";
+        grid[row][column]=character;
+        show_grid(grid, 3);
+    }while(exit==0);
 }
 
 void show_grid(char grid[][3], int n){
