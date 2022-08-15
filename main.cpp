@@ -6,7 +6,7 @@ void grid_numbers(int grid[][3], int n);
 void show_grid(char grid[][3], int n);
 void instructions(char grid[][3], int n);
 void turn(char grid[][3], int n);
-bool gameover(char grid[][3], int n);
+bool gameover(char grid[][3], int n, int m);
 
 int main()
 {
@@ -106,7 +106,7 @@ void turn(char grid[][3], int n){
             cout<<"This field is already taken"<<endl;
         show_grid(grid, 3);
 
-    }while(gameover(grid, 3)==0 && exit==0);
+    }while(gameover(grid, 3, player)==0 && exit==0);
 }
 
 void show_grid(char grid[][3], int n){
@@ -133,10 +133,16 @@ void grid_numbers(int grid[][3], int n){
     }
 }
 
-bool gameover(char grid[][3], int n){
+bool gameover(char grid[][3], int n, int m){
+    int winner;
+    if((m-1)%2==0)
+        winner=1;
+    else
+        winner=2;
+
     for(int i=0; i<n; i++){
         if(grid[0][i]==grid[1][i] && grid[0][i]==grid[2][i] && grid[0][i]!='.' && grid[1][i]!='.' && grid[2][i]!='.'){
-            cout<<"Winner1";
+            cout<<"Winner is: player "<<winner;
             return true;
         }
 
@@ -144,17 +150,22 @@ bool gameover(char grid[][3], int n){
 
     for(int i=0; i<n; i++){
         if(grid[i][0]==grid[i][1] && grid[i][0]==grid[i][2] && grid[i][0]!='.' && grid[i][1]!='.' && grid[i][2]!='.'){
-            cout<<"Winner2";
+            cout<<"Winner is: player "<<winner;
             return true;
         }
 
     }
 
-    if(grid[0][0]==grid[1][1] && grid[2][2]==grid[0][0] && grid[0][0]!='.' && grid[1][1]!='.' && grid[2][2]!='.')
+    if(grid[0][0]==grid[1][1] && grid[2][2]==grid[0][0] && grid[0][0]!='.' && grid[1][1]!='.' && grid[2][2]!='.'){
+        cout<<"Winner is: player "<<winner;
         return true;
+    }
 
-    if(grid[2][0]==grid[1][1] && grid[2][0]==grid[0][2] && grid[2][0]!='.' && grid[1][1]!='.' && grid[0][2]!='.')
+
+    if(grid[2][0]==grid[1][1] && grid[2][0]==grid[0][2] && grid[2][0]!='.' && grid[1][1]!='.' && grid[0][2]!='.'){
+        cout<<"Winner is: player "<<winner;
         return true;
+    }
     return false;
 
 }
