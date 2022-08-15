@@ -4,29 +4,21 @@ using namespace std;
 
 void grid_numbers(int grid[][3], int n);
 void show_grid(char grid[][3], int n);
-void instructions();
+void instructions(char grid[][3], int n);
 void turn(char grid[][3], int n);
+bool gameover(char grid[][3], int n);
 
 int main()
 {
     char grid[3][3] = {{'.','.','.'},{'.','.','.'},{'.','.','.'}};
     cout<<"TIC TAC TOE\n"<<endl;
-
     turn(grid, 3);
-
-
-
-
-
-
-
-    instructions();
     cout<<endl;
 
     return 0;
 }
 
-void instructions(){
+void instructions(char grid[][3], int n){
     cout<<endl<<"How to play:"<<endl;
     cout<<"--------------"<<endl;
     cout<<"This is a game for 2 players. It's played on 3x3 grid and fields are numbered like this: "<<endl;
@@ -37,10 +29,8 @@ void instructions(){
     cout<<"Player one is X and player two is O."<<endl;
     cout<<"Winner is the person who first gets 3 in a row (up, down, across, or diagonally).";
     cout<<endl;
+    turn(grid, 3);
 }
-
-
-
 
 
 
@@ -56,7 +46,7 @@ void turn(char grid[][3], int n){
         cin>>x;
         switch(x){
             case 0:
-                instructions();
+                instructions(grid, 3);
                 break;
             case 1:
                 row=0;
@@ -95,29 +85,28 @@ void turn(char grid[][3], int n){
                 column=2;
                 break;
             case 10:
-                cout<<"exit";
                 exit = true;
                 break;
             default:
                 cout<<"Invalid number"<<endl;
         }
-        char character;
+
         if(grid[row][column]=='.'){
             if(player%2==0){
-                character = 'X';
+                grid[row][column] = 'X';
                 player++;
             }
             else{
-                character = 'O';
+                grid[row][column] = 'O';
                 player++;
             }
 
         }
         else
-            cout<<"This field is already taken";
-        grid[row][column]=character;
+            cout<<"This field is already taken"<<endl;
         show_grid(grid, 3);
-    }while(exit==0);
+
+    }while(gameover(grid, 3)==0 && exit==0);
 }
 
 void show_grid(char grid[][3], int n){
@@ -142,4 +131,30 @@ void grid_numbers(int grid[][3], int n){
         }
         cout<<endl;
     }
+}
+
+bool gameover(char grid[][3], int n){
+    for(int i=0; i<n; i++){
+        if(grid[0][i]==grid[1][i] && grid[0][i]==grid[2][i] && grid[0][i]!='.' && grid[1][i]!='.' && grid[2][i]!='.'){
+            cout<<"Winner1";
+            return true;
+        }
+
+    }
+
+    for(int i=0; i<n; i++){
+        if(grid[i][0]==grid[i][1] && grid[i][0]==grid[i][2] && grid[i][0]!='.' && grid[i][1]!='.' && grid[i][2]!='.'){
+            cout<<"Winner2";
+            return true;
+        }
+
+    }
+
+    if(grid[0][0]==grid[1][1] && grid[2][2]==grid[0][0] && grid[0][0]!='.' && grid[1][1]!='.' && grid[2][2]!='.')
+        return true;
+
+    if(grid[2][0]==grid[1][1] && grid[2][0]==grid[0][2] && grid[2][0]!='.' && grid[1][1]!='.' && grid[0][2]!='.')
+        return true;
+    return false;
+
 }
