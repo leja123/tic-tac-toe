@@ -27,7 +27,7 @@ void instructions(char grid[][3], int n){
     grid_numbers(numbers, 3);
     cout<<endl;
     cout<<"Player one is X and player two is O."<<endl;
-    cout<<"Winner is the person who first gets 3 in a row (up, down, across, or diagonally).";
+    cout<<"Winner is the person who first gets 3 in a row (up, down, across, or diagonally).\n";
     cout<<endl;
     turn(grid, 3);
 }
@@ -145,7 +145,6 @@ bool gameover(char grid[][3], int n, int m){
             cout<<"Winner is: player "<<winner;
             return true;
         }
-
     }
 
     for(int i=0; i<n; i++){
@@ -165,6 +164,12 @@ bool gameover(char grid[][3], int n, int m){
     if(grid[2][0]==grid[1][1] && grid[2][0]==grid[0][2] && grid[2][0]!='.' && grid[1][1]!='.' && grid[0][2]!='.'){
         cout<<"Winner is: player "<<winner;
         return true;
+    }
+
+
+    //draw
+    if(m==9){
+        cout<<"It's a draw!";
     }
     return false;
 
